@@ -10,7 +10,7 @@ import DataTable from "@/components/ui/data-table";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
 import { isUnauthorizedError } from "@/lib/auth-utils";
-import { Link, useLocation } from "wouter";
+import { Link, useNavigate } from "react-router-dom";
 import AnimatedCounter from "@/components/animated-counter";
 import LoadingSpinner, { LoadingCard } from "@/components/loading-spinner";
 import EnhancedButton from "@/components/enhanced-button";
@@ -35,7 +35,7 @@ export default function Dashboard() {
     page: 1,
     limit: 10,
   });
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
   const { toast } = useToast();
   const queryClient = useQueryClient();
 

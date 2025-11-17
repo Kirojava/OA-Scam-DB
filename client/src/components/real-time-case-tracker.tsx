@@ -16,7 +16,7 @@ import {
   Zap
 } from "lucide-react";
 import { RealTimeTimestamp } from "./real-time-timestamp";
-import { useLocation } from "wouter";
+import { useNavigate } from "react-router-dom";
 
 interface RecentCase {
   id: string;
@@ -42,7 +42,7 @@ interface CaseMetrics {
 }
 
 export function RealTimeCaseTracker() {
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
   const [lastUpdate, setLastUpdate] = useState(new Date());
   
   // Fetch real-time case metrics

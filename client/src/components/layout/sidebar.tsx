@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter";
+import { Link, useLocation } from "react-router-dom";
 import { cn } from "@/lib/utils";
 import { 
   Home, 
@@ -41,11 +41,11 @@ interface SidebarProps {
 }
 
 function Sidebar({ className }: SidebarProps) {
-  const [location] = useLocation();
+  const location = useLocation();
   const { user } = useAuth();
   const typedUser = user as User | null;
 
-  const isActive = (href: string) => location === href;
+  const isActive = (href: string) => location.pathname === href;
 
   const linkClass = (href: string) => cn(
     "flex items-center gap-3 px-2 lg:px-4 py-3 text-sm font-medium rounded-lg transition-all duration-200",
@@ -56,7 +56,7 @@ function Sidebar({ className }: SidebarProps) {
 
   // Helper for rendering sidebar links, to avoid repetition
   const SidebarLink = ({ href, icon, text }: { href: string; icon: React.ReactNode; text: string }) => (
-    <Link href={href} className={linkClass(href)}>
+    <Link to={href} className={linkClass(href)}>
       {icon}
       <span className="hidden lg:inline">{text}</span>
     </Link>

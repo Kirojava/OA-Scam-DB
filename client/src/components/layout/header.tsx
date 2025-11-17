@@ -13,7 +13,7 @@ import { Bell, Search, Menu, LogOut, User, Settings, Clock } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth";
 import { Input } from "@/components/ui/input";
 import NotificationSystem from "@/components/notification-system";
-import { useLocation, Link } from "wouter";
+import { useNavigate } from "react-router-dom";
 import { CurrentTime } from "@/components/real-time-timestamp";
 
 
@@ -31,11 +31,11 @@ const activeUsers = 123;
 function Header({ onMenuToggle, onSearch }: HeaderProps) {
   const { user, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
-  const [, setLocation] = useLocation();
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
-    setLocation("/login");
+    navigate("/login");
   };
 
   return (
