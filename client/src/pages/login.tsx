@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { Shield } from "lucide-react";
-import { useLocation } from "wouter";
+import { useNavigate } from "react-router-dom";
 
 
 // Mock functions for demonstration purposes
@@ -16,8 +16,8 @@ export default function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [isLoading, setIsLoading] = useState(false); // Added isLoading state
-  const [, setLocation] = useLocation(); // Use wouter for navigation
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -73,7 +73,7 @@ export default function Login() {
       if (data.token) {
         localStorage.setItem('auth_token', data.token);
         console.log('Login successful, redirecting to dashboard');
-        setLocation('/dashboard');
+        window.location.href = '/dashboard';
       } else {
         throw new Error('No token received');
       }

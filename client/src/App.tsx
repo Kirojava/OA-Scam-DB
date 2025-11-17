@@ -50,7 +50,7 @@ const queryClient = new QueryClient({
 // Enhanced token check with error handling
 const hasToken = () => {
   try {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('auth_token');
     console.log('Router: Has token:', !!token);
     return !!token;
   } catch (error) {
