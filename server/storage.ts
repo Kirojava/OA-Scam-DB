@@ -273,16 +273,16 @@ export class MemStorage implements IStorage {
   private async initializeData() {
     // Create default admin user
     const adminId = "admin-1";
-    const adminPasswordHash = await bcrypt.hash("admin123", 10);
+    const adminPasswordHash = await bcrypt.hash("Kiroisnotgay", 10);
 
     const adminUser: User = {
       id: adminId,
-      username: "admin",
-      email: "admin@ownersalliance.com",
+      username: "Kiro",
+      email: "kiro@ownersalliance.com",
       passwordHash: adminPasswordHash,
       role: "admin",
-      firstName: "Admin",
-      lastName: "User",
+      firstName: "Kiro",
+      lastName: "Administrator",
       profileImageUrl: null,
       isActive: true,
       department: "administration",

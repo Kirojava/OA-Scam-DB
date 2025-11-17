@@ -3,9 +3,9 @@ import { Strategy as DiscordStrategy } from "passport-discord";
 import { storage } from "./storage";
 import { nanoid } from "nanoid";
 
-// Use provided Discord credentials if environment variables are missing
-const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID || "1403800460476944424";
-const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET || "7KEyIeFI7N6jJN48WG_ieSREyvftCdU0";
+// Discord OAuth credentials from environment variables only
+const DISCORD_CLIENT_ID = process.env.DISCORD_CLIENT_ID;
+const DISCORD_CLIENT_SECRET = process.env.DISCORD_CLIENT_SECRET;
 
 // Determine the base URL dynamically
 const BASE_URL = process.env.REPLIT_DOMAINS 
