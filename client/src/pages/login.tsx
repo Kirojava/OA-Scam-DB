@@ -73,7 +73,7 @@ export default function Login() {
       if (data.token) {
         localStorage.setItem('auth_token', data.token);
         console.log('Login successful, redirecting to dashboard');
-        window.location.href = '/dashboard';
+        setLocation('/dashboard');
       } else {
         throw new Error('No token received');
       }

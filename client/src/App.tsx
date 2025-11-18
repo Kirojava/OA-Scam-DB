@@ -1,4 +1,4 @@
-import { Switch, Route, Redirect, useLocation } from 'wouter';
+import { Switch, Route, Redirect } from 'wouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import DashboardLayout from '@/components/layout/dashboard-layout';

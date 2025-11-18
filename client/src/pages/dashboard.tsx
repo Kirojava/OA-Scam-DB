@@ -214,7 +214,7 @@ export default function Dashboard() {
             </div>
           </div>
 
-          <Link href="/new-case">
+          <Link to="/new-case">
             <EnhancedButton variant="primary" glow pulse>
               <Plus className="h-4 w-4 mr-2" />
               New Case
@@ -229,9 +229,9 @@ export default function Dashboard() {
             {/* <RealTimeDashboardStats /> */}
             {/* Placeholder for Stats Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 mb-6 lg:mb-8">
-              <StatsCard title="Total Cases" value={stats?.totalCases || 0} icon={<FileText className="h-6 w-6 text-blue-400" />} trend="+12%" trendColor="text-green-400" />
-              <StatsCard title="Pending Cases" value={stats?.pendingCases || 0} icon={<AlertTriangle className="h-6 w-6 text-yellow-400" />} trend="-3%" trendColor="text-red-400" />
-              <StatsCard title="Verified Cases" value={stats?.verifiedCases || 0} icon={<CheckCircle className="h-6 w-6 text-green-400" />} trend="+5%" trendColor="text-green-400" />
+              <StatsCard title="Total Cases" value={stats?.totalCases || 0} icon={<FileText className="h-6 w-6 text-blue-400" />} trend="+12%" trendDirection="up" />
+              <StatsCard title="Pending Cases" value={stats?.pendingCases || 0} icon={<AlertTriangle className="h-6 w-6 text-yellow-400" />} trend="-3%" trendDirection="down" />
+              <StatsCard title="Verified Cases" value={stats?.verifiedCases || 0} icon={<CheckCircle className="h-6 w-6 text-green-400" />} trend="+5%" trendDirection="up" />
             </div>
 
             {/* Real-time Case Tracker */}
@@ -254,7 +254,7 @@ export default function Dashboard() {
                   <span className="text-xs text-gray-500">10 minutes ago</span>
                 </div>
               </div>
-              <EnhancedButton variant="link" size="sm" className="mt-4 text-blue-400 hover:text-blue-300">
+              <EnhancedButton variant="ghost" size="sm" className="mt-4 text-blue-400 hover:text-blue-300">
                 View All Activity
               </EnhancedButton>
             </div>
