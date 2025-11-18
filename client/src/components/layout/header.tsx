@@ -13,7 +13,7 @@ import { Bell, Search, Menu, LogOut, User, Settings, Clock } from "lucide-react"
 import { useAuth } from "@/hooks/use-auth";
 import { Input } from "@/components/ui/input";
 import NotificationSystem from "@/components/notification-system";
-import { useNavigate } from "react-router-dom";
+import { Link, useLocation } from "wouter";
 import { CurrentTime } from "@/components/real-time-timestamp";
 
 
@@ -31,11 +31,11 @@ const activeUsers = 123;
 function Header({ onMenuToggle, onSearch }: HeaderProps) {
   const { user, logout } = useAuth();
   const [searchQuery, setSearchQuery] = useState("");
-  const navigate = useNavigate();
+  const [, setLocation] = useLocation();
 
   const handleLogout = () => {
     logout();
-    navigate("/login");
+    setLocation("/login");
   };
 
   return (
@@ -126,7 +126,7 @@ function Header({ onMenuToggle, onSearch }: HeaderProps) {
                 asChild
                 className="text-slate-300 hover:bg-slate-700 hover:text-white cursor-pointer"
               >
-                <Link href="/profile" className="flex items-center w-full h-full px-2 py-1.5">
+                <Link to="/profile" className="flex items-center w-full h-full px-2 py-1.5">
                   <User className="mr-2 h-4 w-4" />
                   Profile
                 </Link>
@@ -135,7 +135,7 @@ function Header({ onMenuToggle, onSearch }: HeaderProps) {
                 asChild
                 className="text-slate-300 hover:bg-slate-700 hover:text-white cursor-pointer"
               >
-                <Link href="/settings" className="flex items-center w-full h-full px-2 py-1.5">
+                <Link to="/settings" className="flex items-center w-full h-full px-2 py-1.5">
                   <Settings className="mr-2 h-4 w-4" />
                   Settings
                 </Link>
