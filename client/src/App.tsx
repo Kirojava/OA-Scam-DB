@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { Switch, Route, Redirect, useLocation } from 'wouter';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from '@/components/ui/toaster';
 import DashboardLayout from '@/components/layout/dashboard-layout';
@@ -59,67 +59,70 @@ const hasToken = () => {
   }
 };
 
+// Protected route wrapper component
+function ProtectedRoute({ component: Component }: { component: React.ComponentType }) {
+  const isAuth = hasToken();
+  if (!isAuth) {
+    return <Redirect to="/login" />;
+  }
+  return (
+    <DashboardLayout>
+      <Component />
+    </DashboardLayout>
+  );
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <Router>
-        <div className="App min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-          <Routes>
-            <Route 
-              path="/login" 
-              element={!hasToken() ? <Login /> : <Navigate to="/dashboard" replace />} 
-            />
-            <Route 
-              path="/" 
-              element={hasToken() ? <Navigate to="/dashboard" replace /> : <Navigate to="/login" replace />} 
-            />
+      <div className="App min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
+        <Switch>
+          {/* Login route - redirect to dashboard if already logged in */}
+          <Route path="/login">
+            {hasToken() ? <Redirect to="/dashboard" /> : <Login />}
+          </Route>
 
-            {/* Protected Routes */}
-            <Route path="/*" element={
-              hasToken() ? (
-                <DashboardLayout>
-                  <Routes>
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/new-case" element={<NewCase />} />
-                    <Route path="/profile" element={<Profile />} />
-                    <Route path="/settings" element={<Settings />} />
-                    <Route path="/admin-panel" element={<AdminPanel />} />
-                    <Route path="/staff-management" element={<StaffManagement />} />
-                    <Route path="/advanced-analytics" element={<AdvancedAnalytics />} />
-                    <Route path="/ai-tools" element={<AITools />} />
-                    <Route path="/threat-intel" element={<ThreatIntel />} />
-                    <Route path="/alt-detection" element={<AltDetection />} />
-                    <Route path="/impersonation-heatmap" element={<ImpersonationHeatmap />} />
-                    <Route path="/marketplace" element={<Marketplace />} />
-                    <Route path="/vouches" element={<Vouches />} />
-                    <Route path="/community-events" element={<CommunityEvents />} />
-                    <Route path="/resource-hub" element={<ResourceHub />} />
-                    <Route path="/member-verification" element={<MemberVerification />} />
-                    <Route path="/reputation-profiles" element={<ReputationProfiles />} />
-                    <Route path="/reputation-insurance" element={<ReputationInsurance />} />
-                    <Route path="/proof-of-ownership" element={<ProofOfOwnership />} />
-                    <Route path="/custom-roles" element={<CustomRoles />} />
-                    <Route path="/tribunal-proceedings" element={<TribunalProceedings />} />
-                    <Route path="/staff-assignments" element={<StaffAssignments />} />
-                    <Route path="/disputes" element={<Disputes />} />
-                    <Route path="/report-vault" element={<ReportVault />} />
-                    <Route path="/live-activity-feed" element={<LiveActivityFeed />} />
-                    
-                    {/* New feature pages */}
-                    <Route path="/action-playbooks" element={<ActionPlaybooks />} />
-                    <Route path="/ai-moderation-controls" element={<AIModerationControls />} />
+          {/* Root route - redirect based on auth status */}
+          <Route path="/">
+            {hasToken() ? <Redirect to="/dashboard" /> : <Redirect to="/login" />}
+          </Route>
 
-                    <Route path="*" element={<NotFound />} />
-                  </Routes>
-                </DashboardLayout>
-              ) : (
-                <Navigate to="/login" replace />
-              )
-            } />
-          </Routes>
-          <Toaster />
-        </div>
-      </Router>
+          {/* Protected Routes */}
+          <Route path="/dashboard" component={() => <ProtectedRoute component={Dashboard} />} />
+          <Route path="/new-case" component={() => <ProtectedRoute component={NewCase} />} />
+          <Route path="/profile" component={() => <ProtectedRoute component={Profile} />} />
+          <Route path="/settings" component={() => <ProtectedRoute component={Settings} />} />
+          <Route path="/admin-panel" component={() => <ProtectedRoute component={AdminPanel} />} />
+          <Route path="/staff-management" component={() => <ProtectedRoute component={StaffManagement} />} />
+          <Route path="/advanced-analytics" component={() => <ProtectedRoute component={AdvancedAnalytics} />} />
+          <Route path="/ai-tools" component={() => <ProtectedRoute component={AITools} />} />
+          <Route path="/threat-intel" component={() => <ProtectedRoute component={ThreatIntel} />} />
+          <Route path="/alt-detection" component={() => <ProtectedRoute component={AltDetection} />} />
+          <Route path="/impersonation-heatmap" component={() => <ProtectedRoute component={ImpersonationHeatmap} />} />
+          <Route path="/marketplace" component={() => <ProtectedRoute component={Marketplace} />} />
+          <Route path="/vouches" component={() => <ProtectedRoute component={Vouches} />} />
+          <Route path="/community-events" component={() => <ProtectedRoute component={CommunityEvents} />} />
+          <Route path="/resource-hub" component={() => <ProtectedRoute component={ResourceHub} />} />
+          <Route path="/member-verification" component={() => <ProtectedRoute component={MemberVerification} />} />
+          <Route path="/reputation-profiles" component={() => <ProtectedRoute component={ReputationProfiles} />} />
+          <Route path="/reputation-insurance" component={() => <ProtectedRoute component={ReputationInsurance} />} />
+          <Route path="/proof-of-ownership" component={() => <ProtectedRoute component={ProofOfOwnership} />} />
+          <Route path="/custom-roles" component={() => <ProtectedRoute component={CustomRoles} />} />
+          <Route path="/tribunal-proceedings" component={() => <ProtectedRoute component={TribunalProceedings} />} />
+          <Route path="/staff-assignments" component={() => <ProtectedRoute component={StaffAssignments} />} />
+          <Route path="/disputes" component={() => <ProtectedRoute component={Disputes} />} />
+          <Route path="/report-vault" component={() => <ProtectedRoute component={ReportVault} />} />
+          <Route path="/live-activity-feed" component={() => <ProtectedRoute component={LiveActivityFeed} />} />
+          
+          {/* New feature pages */}
+          <Route path="/action-playbooks" component={() => <ProtectedRoute component={ActionPlaybooks} />} />
+          <Route path="/ai-moderation-controls" component={() => <ProtectedRoute component={AIModerationControls} />} />
+
+          {/* 404 page */}
+          <Route component={NotFound} />
+        </Switch>
+        <Toaster />
+      </div>
     </QueryClientProvider>
   );
 }
